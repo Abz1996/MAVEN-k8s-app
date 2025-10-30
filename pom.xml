@@ -1,0 +1,40 @@
+
+
+
+    4.0.0
+    
+        org.springframework.boot
+        spring-boot-starter-parent
+        3.1.5
+    
+    
+    com.example
+    devops-app
+    1.0.0
+    DevOps Demo App
+    
+    
+        17
+    
+    
+    
+        
+            org.springframework.boot
+            spring-boot-starter-web
+        
+        
+            org.springframework.boot
+            spring-boot-starter-actuator
+        
+    
+    
+    
+        
+            
+                org.springframework.boot
+                spring-boot-maven-plugin
+            
+        
+    
+
+
