@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devops-app-config
+  namespace: devops-demo
+data:
+  application.properties: |
+    server.port=8080
+    spring.application.name=devops-app
+    management.endpoints.web.exposure.include=health,info,metrics

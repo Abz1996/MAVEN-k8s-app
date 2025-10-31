@@ -3,10 +3,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: devops-app
+  namespace: devops-demo
   labels:
     app: devops-app
+    version: v1
 spec:
   replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: devops-app
@@ -14,24 +21,37 @@ spec:
     metadata:
       labels:
         app: devops-app
+        version: v1
     spec:
+      imagePullSecrets:
+      - name: jfrog-secret
       containers:
       - name: devops-app
-        image: YOUR_NEXUS_URL/devops-app:latest
+        image: YOUR_ARTIFACTORY_URL/docker-local/devops-app:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "production"
         livenessProbe:
           httpGet:
-            path: /actuator/health
+            path: /actuator/health/liveness
             port: 8080
-          initialDelaySeconds: 30
+          initialDelaySeconds: 45
           periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: /actuator/health
+            path: /actuator/health/readiness
             port: 8080
-          initialDelaySeconds: 20
+          initialDelaySeconds: 30
           periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
         resources:
           requests:
             memory: "256Mi"
@@ -39,4 +59,3 @@ spec:
           limits:
             memory: "512Mi"
             cpu: "500m"
-

@@ -1,7 +1,4 @@
-
-
-
-    4.0.0
+ 4.0.0
     
         org.springframework.boot
         spring-boot-starter-parent
@@ -26,6 +23,11 @@
             org.springframework.boot
             spring-boot-starter-actuator
         
+        
+            org.springframework.boot
+            spring-boot-starter-test
+            test
+        
     
     
     
@@ -36,5 +38,17 @@
             
         
     
-
-
+    
+    
+    
+        
+            artifactory
+            artifactory-releases
+            https://YOUR_ARTIFACTORY_URL/artifactory/libs-release-local
+        
+        
+            artifactory
+            artifactory-snapshots
+            https://YOUR_ARTIFACTORY_URL/artifactory/libs-snapshot-local
+        
+    
